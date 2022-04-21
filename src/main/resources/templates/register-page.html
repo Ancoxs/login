@@ -14,22 +14,22 @@
 <body class="text-center">
 
 <main class="form-signin">
-    <form action="/register" method="post">
+    <form th:action="@{/register}" th:object="${user}" method="post">
         <h1 class="h3 mb-3 fw-normal">Create an account</h1>
             <div class="form-floating">
-                <input required type="text" name="first_name" class="form-control" id="firstName" placeholder="John">
+                <input required type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="John">
                 <label for="firstName">First name</label>
             </div>
             <div class="form-floating">
-                <input required type="text" name="last_name" class="form-control" id="lastName" placeholder="Doe">
+                <input required type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Doe">
                 <label for="lastName">Last name</label>
             </div>
             <div class="form-floating">
-                <input required type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+                <input required type="email" th:field="*{email}" class="form-control" id="email" placeholder="name@example.com">
                 <label for="email">Email address</label>
             </div>
             <div class="form-floating">
-                <input required type="password" name="password" class="form-control" id="password" placeholder="Password">
+                <input required type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
                 <label for="password">Password</label>
             </div>
 

@@ -11,6 +11,10 @@
       <main class="px-3">
         <h1>Welcome to my little world, stranger!</h1>
         <p class="lead"></p>
+
+        <form th:action="@{/logout}" method="post">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Out</button>
+        </form>
       </main>
 
       <footer class="mt-auto text-white-50">

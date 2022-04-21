@@ -1,31 +1,31 @@
 package com.springlogin.login.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
     @Id
-    private String email;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String first_name, last_name, password;
-
+    private String email, firstName, lastName, password;
 
     public String getFirstName() {
-        return first_name;
+        return firstName;
     }
 
     public void setFirstName(String first_name) {
-        this.first_name = first_name;
+        this.firstName = first_name;
     }
 
     public String getLastName() {
-        return last_name;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.last_name = lastName;
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -47,10 +47,10 @@ public class User {
     public User() {
     }
 
-    public User(String first_name, String last_name, String email, String password) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public User(String email, String first_name, String last_name, String password) {
         this.email = email;
+        this.firstName = first_name;
+        this.lastName = last_name;
         this.password = password;
     }
 }

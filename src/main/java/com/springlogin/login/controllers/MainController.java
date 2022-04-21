@@ -4,6 +4,7 @@ import com.springlogin.login.models.User;
 import com.springlogin.login.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,33 +22,36 @@ public class MainController {
     @Autowired
     private UserRepository userRep;
 
-    @GetMapping("/")
-    public String main(Model model){
+    @GetMapping("/home")
+    public String homePage(Model model){
         return "home";
     }
+    @GetMapping("/")
+    public String main(Model model){
+        return "unauthorized";
+    }
 
-    @ExceptionHandler(ResponseStatusException.class)
+    @GetMapping("/error-page")
     public String handleException(Model model){
         return "error-page";
     }
 
     @GetMapping("/login")
     public String login(Model model){
-        return "signIn-page";
+        return "login";
     }
 
     @GetMapping("/register")
     public String register(Model model){
+        model.addAttribute("user", new User());
         return "register-page";
     }
 
     @PostMapping("/register")
-    public String createAnAccount(@RequestParam String first_name, @RequestParam String last_name, @RequestParam String email, @RequestParam String password, Model model){
-        Optional<User> oUser = userRep.findById(email);
-        if(oUser.isPresent()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists!");
-        }
-        User user = new User(first_name,last_name,email,password);
+    public String createAnAccount(User user){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         userRep.save(user);
         return "redirect:/login";
     }
