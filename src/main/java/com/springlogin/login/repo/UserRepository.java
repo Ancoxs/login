@@ -1,0 +1,8 @@
+package com.springlogin.login.repo;
+
+
+import com.springlogin.login.models.User;
+import org.springframework.data.repository.CrudRepository;
+
+public interface UserRepository extends CrudRepository<User, String> {
+}
